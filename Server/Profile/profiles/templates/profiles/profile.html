@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <!-- 引入 Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Profile Manager</a>
+        </div>
+    </nav>
+
+    <!-- 主体内容 -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- 项目介绍 -->
+                <div class="alert alert-info d-flex align-items-center" role="alert">
+                    <!-- 项目介绍图片 -->
+<!--                    <img src="D:\GraduateLife\课程\计算机网络\作业\作业3\Server\Profile\statics\img\picture.png" alt="Project Introduction" class="me-3 rounded" style="width: 150px;">-->
+                        <img src="{% static 'img/picture.png' %}" alt="Project Introduction" class="me-3 rounded" style="width: 150px;">
+                    <!-- 项目介绍文字 -->
+                    <div>
+                        <h4 class="alert-heading">Welcome to Profile Manager!</h4>
+                        <p>
+                            This project is designed to help you manage your personal information efficiently.
+                            You can view and update your name, email, phone number, and address using this simple interface.
+                        </p>
+                        <hr>
+                        <p class="mb-0">Feel free to make changes and click the "Update" button to save your details.</p>
+                    </div>
+                </div>
+
+                <!-- 个人信息卡片 -->
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Personal Information</h4>
+                    </div>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="id_name" class="form-label">Name</label>
+                                {{ form.name }}
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_email" class="form-label">Email</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_phone" class="form-label">Phone</label>
+                                {{ form.phone }}
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_address" class="form-label">Address</label>
+                                {{ form.address }}
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="bg-light text-center text-lg-start mt-5">
+        <div class="text-center p-3 bg-secondary text-white">
+            © 2024 Profile Manager | Powered by Django
+        </div>
+    </footer>
+
+    <!-- 引入 Bootstrap JS (可选) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
